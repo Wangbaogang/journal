@@ -1,0 +1,7 @@
+## 服务端密码等敏感配置
+/config
+
+## 
+/node_modules
+package-lock.json
+.vscode
