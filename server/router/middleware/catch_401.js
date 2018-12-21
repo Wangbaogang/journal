@@ -6,10 +6,11 @@ async function catchError(ctx, next) {
   return next().catch(err => {
     if (err.status === 401) {
       ctx.status = 200
+      ctx.cookies.set('token', '', { maxAge: -1 })
       ctx.body = {
-				status: AUTHORITY_ERROR,
-				message: "如需访问，请先登录"
-			}
+        status: AUTHORITY_ERROR,
+        message: '如需访问，请先登录'
+      }
     } else {
       throw err
     }

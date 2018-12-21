@@ -19,14 +19,14 @@ const getEmail = token => {
   return email
 }
 
-// router.use(middlewares.catch_401)
-// router.use(middlewares.auth_validate)
+router.use(middlewares.catch_401)
+router.use(middlewares.auth_validate)
 
 //新建日志
 router.post('/createJournal', async function createJournal(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
   const body = await getRawBody(ctx.req) //buffer
   const bodyObj = JSON.parse(body.toString())
   const token = ctx.cookies.get('token')
@@ -39,9 +39,9 @@ router.post('/createJournal', async function createJournal(ctx, next) {
 
 //编辑日志
 router.post('/updateJournal', async function createJournal(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
   const body = await getRawBody(ctx.req) //buffer
   const bodyObj = JSON.parse(body.toString())
   const token = ctx.cookies.get('token')
@@ -53,9 +53,9 @@ router.post('/updateJournal', async function createJournal(ctx, next) {
 })
 
 router.post('/findJournalById', async function findJournalById(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
   const body = await getRawBody(ctx.req) //buffer
   const bodyObj = JSON.parse(body.toString())
   const token = ctx.cookies.get('token')
@@ -79,10 +79,9 @@ router.post('/findJournalById', async function findJournalById(ctx, next) {
 
 //查找用户日志
 router.post('/findJournals', async function findJournals(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
-
   const token = ctx.cookies.get('token')
   if (!token) {
     ctx.body = {
@@ -101,10 +100,9 @@ router.post('/findJournals', async function findJournals(ctx, next) {
 
 //发送激活邮件
 router.post('/public/sendActiveMail', async function sendMailAsync(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
-
   const body = await getRawBody(ctx.req) //buffer
   const bodyObj = JSON.parse(body.toString())
   const { email } = bodyObj
@@ -121,9 +119,9 @@ router.post('/public/sendActiveMail', async function sendMailAsync(ctx, next) {
 })
 
 router.post('/public/login', async function login(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
   const body = await getRawBody(ctx.req)
   const bodyObj = JSON.parse(body.toString())
   const { email, password } = bodyObj
@@ -158,10 +156,9 @@ router.post('/public/login', async function login(ctx, next) {
 
 //退出登录
 router.post('/logout', async function logout(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
-
   ctx.cookies.set('token', '', { maxAge: -1 })
   ctx.body = {
     success: true
@@ -170,9 +167,9 @@ router.post('/logout', async function logout(ctx, next) {
 
 // 注册账号
 router.post('/public/register', async function register(ctx, next) {
+  await next()
   ctx.type = 'application/json;charset=UTF-8'
   ctx.status = 200
-  await next()
   const body = await getRawBody(ctx.req)
   const bodyObj = JSON.parse(body.toString())
   //此处未来补充密码非对称加密解密逻辑

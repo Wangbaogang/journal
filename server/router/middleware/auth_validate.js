@@ -8,8 +8,7 @@ const validateToken = koaJwt({
     return ctx.cookies.get('token')
   },
   isRevoked() {
-    //此处添加校验逻辑
-    return Promise.resolve(true)
+    return Promise.resolve(false)
   }
 }).unless({
   path: [/\/api\/public/]
