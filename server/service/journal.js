@@ -8,9 +8,9 @@ class JournalModel extends BaseService {
     super(JournalModel.model)
   }
 
-  async findJournalsByEmail(email, options = { limit: 5 }) {
+  async findJournalsByEmail(email, { pageSize = 5, pageNumber = 0 }) {
     const cursor = await this.baseFind({ email })
-    const journals = await cursor.limit(options.limit).toArray()
+    const journals = await cursor.skip(pageSize * pageNumber).limit(pageSize).toArray()
     console.log(journals, 'findJournalsByEmail')
     return journals
   }

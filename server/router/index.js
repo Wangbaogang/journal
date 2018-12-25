@@ -90,7 +90,10 @@ router.post('/findJournals', async function findJournals(ctx, next) {
     }
   } else {
     const email = getEmail(token)
-    const journlas = await journalService.findJournalsByEmail(email)
+    const body = await getRawBody(ctx.req) //buffer
+    const bodyObj = JSON.parse(body.toString())
+    console.log(bodyObj)
+    const journlas = await journalService.findJournalsByEmail(email, bodyObj)
     ctx.body = {
       success: true,
       data: journlas
